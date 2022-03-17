@@ -1,0 +1,57 @@
+header ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+header ul li {
+    display: flex;
+    list-style-type: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid gray;
+}
+
+.students li {
+    list-style-type: none;
+}
+
+.students{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    
+}
+.students li {
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.students li:not(:first-child) {
+    flex-direction: column;
+}
+.students li h5,h6 {
+    padding: 0;
+    margin: 0;
+}
+.students li input {
+    width: 50%;
+}
+
+.fa-lock {
+    color: green;
+}
+
+.fa-lock-open {
+    color: green
+}
+.fa-user-lock {
+    transition: all .4s;
+    color: green
+}
+.fa-user-lock:active {
+    color: red
+}
+select {
+    margin-right: 5vw;
+}

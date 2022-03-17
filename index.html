@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Grades</title>
+</head>
+<body>
+    <div class="container" id="app">
+        <header>
+            <ul>
+                <li>Students</li>
+                <li>Q1
+                    <button @click="q1Open = !q1Open">
+                        <i v-if="!q1Open" class="fa-solid fa-lock"></i>
+                        <i v-else class="fa-solid fa-lock-open"></i>
+                    </button>
+                </li>
+                <li>Q2
+                    <button @click="q2Open = !q2Open">
+                        <i v-if="!q2Open" class="fa-solid fa-lock"></i>
+                        <i v-else class="fa-solid fa-lock-open"></i>
+                    </button>
+                </li>
+                <li>Q3
+                    <button @click="q3Open = !q3Open">
+                        <i v-if="!q3Open" class="fa-solid fa-lock"></i>
+                        <i v-else class="fa-solid fa-lock-open"></i>
+                    </button>
+                </li>
+                <li>Q4
+                    <button @click="q4Open = !q4Open">
+                        <i v-if="!q4Open" class="fa-solid fa-lock"></i>
+                        <i v-else class="fa-solid fa-lock-open"></i>
+                    </button>
+                </li>
+                <li>T
+                    <button @click="tOpen = !tOpen">
+                        <i v-if="!tOpen" class="fa-solid fa-lock"></i>
+                        <i v-else class="fa-solid fa-lock-open"></i>
+                    </button>
+                </li>
+            </ul>
+        </header>
+        <main>
+                <ul class="students"
+                    v-for="(student, idx) in students"
+                >
+                    <li :id="student.name">
+                        {{ student.name }}
+                        <button
+                            @click="openLine(idx)">
+                            <i class="fa-solid fa-user-lock"></i>
+                        </button>
+                        <button
+                        v-if="students[idx].statusq1"
+                        @click="savePointsHandler(idx)">save</button>
+                    </li>
+                    <li>
+                        <input 
+                            type="number"
+                            v-if="students[idx].statusq1"
+                            v-model="students[idx].q1">
+                        <button 
+                            v-if="q1Open"
+                            @click="openQ1Inputs(idx)">pen</button>
+                        <h5 v-if="this.students[idx].arrOfQ[0].length === 2"
+                            :class="'q1-' + idx"
+                            :style="{color: students[idx].q1 < 50 
+                                    ? 'red' : 'green'}">
+                            {{ this.students[idx].arrOfQ[0][1] }}
+                        </h5>
+                        <h5 v-else="this.students[idx].arrOfQ[0].length === 2"
+                            :class="'q1-' + idx"
+                            :style="{color: students[idx].q1 < 50 
+                                    ? 'red' : 'green'}">
+                            {{ this.students[idx].arrOfQ[0][0] }}
+                        </h5>
+                        <h6 v-if="this.students[idx].arrOfQ[0].length === 2"
+                            :class="'q1old-' + idx"
+                            :style="{opacity: .3}">
+                            {{ this.students[idx].arrOfQ[0][0] }} {{ dateTime }}
+                        </h6>
+                        </li>
+                    <li>
+                        <input 
+                            type="number"
+                            v-if="students[idx].statusq2"
+                            v-model="students[idx].q2">
+                        <button 
+                            v-if="q2Open"
+                            @click="openQ2Inputs(idx)">pen</button>
+                            <h5 v-if="this.students[idx].arrOfQ[0].length === 2"
+                            :class="'q1-' + idx"
+                            :style="{color: students[idx].q1 < 50 
+                                    ? 'red' : 'green'}">
+                            {{ this.students[idx].arrOfQ[1][1] }}
+                        </h5>
+                        <h5 v-else="this.students[idx].arrOfQ[0].length === 2"
+                            :class="'q1-' + idx"
+                            :style="{color: students[idx].q1 < 50 
+                                    ? 'red' : 'green'}">
+                            {{ this.students[idx].arrOfQ[1][0] }}
+                        </h5>
+                        <h6 v-if="this.students[idx].arrOfQ[1].length === 2"
+                            :class="'q1old-' + idx"
+                            :style="{opacity: .3}">
+                            {{ this.students[idx].arrOfQ[1][0] }} {{ dateTime }}
+                        </h6>        
+                    </li>
+                    <li>
+                        <input 
+                            type="number"
+                            v-if="students[idx].statusq3"
+                            v-model="students[idx].q3">
+                        <button 
+                            v-if="q3Open"
+                            @click="openQ3Inputs(idx)">pen</button>
+                            <h5 v-if="this.students[idx].arrOfQ[0].length === 2"
+                            :class="'q1-' + idx"
+                            :style="{color: students[idx].q1 < 50 
+                                    ? 'red' : 'green'}">
+                            {{ this.students[idx].arrOfQ[2][1] }}
+                        </h5>
+                        <h5 v-else="this.students[idx].arrOfQ[0].length === 2"
+                            :class="'q1-' + idx"
+                            :style="{color: students[idx].q1 < 50 
+                                    ? 'red' : 'green'}">
+                            {{ this.students[idx].arrOfQ[2][0] }}
+                        </h5>
+                        <h6 v-if="this.students[idx].arrOfQ[2].length === 2"
+                            :class="'q1old-' + idx"
+                            :style="{opacity: .3}">
+                            {{ this.students[idx].arrOfQ[2][0] }} {{ dateTime }}
+                        </h6> 
+                    </li>
+                    <li>
+                        <input 
+                            type="number"
+                            v-if="students[idx].statusq4"
+                            v-model="students[idx].q4">
+                        <button 
+                            v-if="q4Open"
+                            @click="openQ4Inputs(idx)">pen</button>
+                            <h5 v-if="this.students[idx].arrOfQ[0].length === 2"
+                            :class="'q1-' + idx"
+                            :style="{color: students[idx].q1 < 50 
+                                    ? 'red' : 'green'}">
+                            {{ this.students[idx].arrOfQ[3][1] }}
+                        </h5>
+                        <h5 v-else="this.students[idx].arrOfQ[0].length === 2"
+                            :class="'q1-' + idx"
+                            :style="{color: students[idx].q1 < 50 
+                                    ? 'red' : 'green'}">
+                            {{ this.students[idx].arrOfQ[3][0] }}
+                        </h5>
+                        <h6 v-if="this.students[idx].arrOfQ[3].length === 2"
+                            :class="'q1old-' + idx"
+                            :style="{opacity: .3}">
+                            {{ this.students[idx].arrOfQ[3][0] }} {{ dateTime }}
+                        </h6> 
+                    </li>
+                    <li>
+                        <h5 :class="'t-'+ idx"></h5>
+                    </li>
+                </ul>
+        </main>
+        <select id="sorting">
+            <option selected value="all">По возрастанию</option>
+            <option @click="showHandler" value="1">quiz one</option>
+            <option @click="showHandler" value="2">quiz two</option>
+            <option @click="showHandler" value="3">quiz three</option>
+            <option @click="showHandler" value="4">quiz four</option>
+        </select>
+        <select id="sorting2">
+            <option selected value="all">По убыванию</option>
+            <option @click="showHandler2" value="1">quiz one</option>
+            <option @click="showHandler2" value="2">quiz two</option>
+            <option @click="showHandler2" value="3">quiz three</option>
+            <option @click="showHandler2" value="4">quiz four</option>
+        </select>
+    </div>
+</body>
+<script src="https://unpkg.com/vue@3"></script> 
+<script src="app.js"></script>
+</html>
